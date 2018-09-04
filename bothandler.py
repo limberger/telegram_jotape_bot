@@ -24,6 +24,7 @@ class BotHandler:
         get_result = self.get_updates()
 
         print("get_result len: %s" % len(get_result))
+        print(get_result)
         last_update = get_result[-1]
 
         return last_update
