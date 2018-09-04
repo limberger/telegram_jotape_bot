@@ -6,7 +6,7 @@ import sys
 # heroku config:set TELEGRAM_TOKEN='xxxxxxxxx:xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
 
 if not 'TELEGRAM_TOKEN' in os.environ:
-    print('Token nao setado em TELEGRAM_TOKEN", file=sys.stderr)
+    print('Token nao setado em TELEGRAM_TOKEN', file=sys.stderr)
     sys.exit(2)
 token=os.environ['TELEGRAM_TOKEN']
 greet_bot = BotHandler(token)  
