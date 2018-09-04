@@ -17,12 +17,13 @@ greetings = ('hello', 'hi', 'greetings', 'sup')
 now = datetime.datetime.now()
 
 def main():  
+    print('In main',file=sys.stderr)
     new_offset = None
     today = now.day
     hour = now.hour
 
     while True:
-        print("In loop...")
+        print("In loop...",file=sys.stderr)
         greet_bot.get_updates(new_offset)
 
         last_update = greet_bot.get_last_update()
@@ -46,9 +47,9 @@ def main():
 
         new_offset = last_update_id + 1
 
-print('Init...')
+print('Init...',file=sys.stderr)
 if __name__ == '__main__':  
-    print('Calling main()')
+    print('Calling main...',file=sys.stderr)
     try:
         main()
     except KeyboardInterrupt:
