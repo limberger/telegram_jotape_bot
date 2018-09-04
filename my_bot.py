@@ -1,3 +1,4 @@
+token='670866853:AAG6V0PPIO29EAaIK7DArDLSBlLf7Y7OPVk' 
 greet_bot = BotHandler(token)  
 greetings = ('hello', 'hi', 'greetings', 'sup')  
 now = datetime.datetime.now()

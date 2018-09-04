@@ -1,6 +1,6 @@
 import request
 
-token='670866853:AAG6V0PPIO29EAaIK7DArDLSBlLf7Y7OPVk'
+token='xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
 url = "https://api.telegram.org/bot<token>/"
 
 
