@@ -28,33 +28,40 @@ def main():
 
         last_update = greet_bot.get_last_update()
 
+        print("Last_update len: %s",len(last_update))
+
+
         if not last_update:
            continue 
 
         if not 'message' in last_update:
             continue
 
-        if not 'text' in last_update['message']:
-            continue
+        if  'new_chat_member' in last_update:
+            greet_bot.send_mesage("Olá %s!\n Bem vid@ ao grupo!", last_update['new_chat_member']['first_name'])
 
-        last_update_id = last_update['update_id']
-        last_chat_text = last_update['message']['text']
-        last_chat_id = last_update['message']['chat']['id']
-        last_chat_name = last_update['message']['chat']['first_name']
+        if 'left_chat_participant' in last_update:
+            greet_bot.send_mesage("Tchau %s!", last_update['left_chat_participant']['first_name'])
 
-        if last_chat_text.lower() in greetings and today == now.day and 6 <= hour < 12:
-            greet_bot.send_message(last_chat_id, 'Bom dia  {}'.format(last_chat_name))
-            today += 1
+        if 'text' in last_update['message']:
+            last_update_id = last_update['update_id']
+            last_chat_text = last_update['message']['text']
+            last_chat_id = last_update['message']['chat']['id']
+            last_chat_name = last_update['message']['chat']['first_name']
 
-        elif last_chat_text.lower() in greetings and today == now.day and 12 <= hour < 17:
-            greet_bot.send_message(last_chat_id, 'Boa tarde {}'.format(last_chat_name))
-            today += 1
+            if last_chat_text.lower() in greetings and today == now.day and 6 <= hour < 12:
+                greet_bot.send_message(last_chat_id, 'Bom dia  {}'.format(last_chat_name))
+                today += 1
 
-        elif last_chat_text.lower() in greetings and today == now.day and 17 <= hour < 23:
-            greet_bot.send_message(last_chat_id, 'Boa noite  {}'.format(last_chat_name))
-            today += 1
+            elif last_chat_text.lower() in greetings and today == now.day and 12 <= hour < 17:
+                greet_bot.send_message(last_chat_id, 'Boa tarde {}'.format(last_chat_name))
+                today += 1
 
-        #elif last_chat_text.lower() = 'trendings':
+            elif last_chat_text.lower() in greetings and today == now.day and 17 <= hour < 23:
+                greet_bot.send_message(last_chat_id, 'Boa noite  {}'.format(last_chat_name))
+                today += 1
+
+            #elif last_chat_text.lower() = 'trendings':
 
 
         new_offset = last_update_id + 1

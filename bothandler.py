@@ -30,4 +30,4 @@ class BotHandler:
         print(get_result)
         last_update = get_result[-1]
 
-        return last_update
+        return get_result  # Retornando Tudo
