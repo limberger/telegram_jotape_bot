@@ -1,4 +1,14 @@
-token='670866853:AAG6V0PPIO29EAaIK7DArDLSBlLf7Y7OPVk' 
+
+import os
+import sys
+
+# set the token using
+# heroku config:set TELEGRAM_TOKEN='xxxxxxxxx:xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
+
+if not 'TELEGRAM_TOKEN' in os.environ:
+    print('Token nao setado em TELEGRAM_TOKEN", file=sys.stderr)
+    sys.exit(2)
+token=os.environ['TELEGRAM_TOKEN']
 greet_bot = BotHandler(token)  
 greetings = ('hello', 'hi', 'greetings', 'sup')  
 now = datetime.datetime.now()
