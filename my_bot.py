@@ -2,6 +2,8 @@
 import os
 import sys
 from bothandler import BotHandler
+import datetime
+import requests
 
 # set the token using
 # heroku config:set TELEGRAM_TOKEN='xxxxxxxxx:xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
