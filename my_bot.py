@@ -1,7 +1,7 @@
 
 import os
 import sys
-from .bothandler import BotHandler
+from bothandler import BotHandler
 
 # set the token using
 # heroku config:set TELEGRAM_TOKEN='xxxxxxxxx:xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
@@ -13,7 +13,6 @@ token=os.environ['TELEGRAM_TOKEN']
 greet_bot = BotHandler(token)  
 greetings = ('hello', 'hi', 'greetings', 'sup')  
 now = datetime.datetime.now()
-
 
 def main():  
     new_offset = None
