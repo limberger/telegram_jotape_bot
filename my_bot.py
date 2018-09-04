@@ -34,16 +34,19 @@ def main():
         last_chat_name = last_update['message']['chat']['first_name']
 
         if last_chat_text.lower() in greetings and today == now.day and 6 <= hour < 12:
-            greet_bot.send_message(last_chat_id, 'Good Morning  {}'.format(last_chat_name))
+            greet_bot.send_message(last_chat_id, 'Bom dia  {}'.format(last_chat_name))
             today += 1
 
         elif last_chat_text.lower() in greetings and today == now.day and 12 <= hour < 17:
-            greet_bot.send_message(last_chat_id, 'Good Afternoon {}'.format(last_chat_name))
+            greet_bot.send_message(last_chat_id, 'Boa tarde {}'.format(last_chat_name))
             today += 1
 
         elif last_chat_text.lower() in greetings and today == now.day and 17 <= hour < 23:
-            greet_bot.send_message(last_chat_id, 'Good Evening  {}'.format(last_chat_name))
+            greet_bot.send_message(last_chat_id, 'Boa noite  {}'.format(last_chat_name))
             today += 1
+
+        elif last_chat_text.lower() = 'trendings':
+
 
         new_offset = last_update_id + 1
 
