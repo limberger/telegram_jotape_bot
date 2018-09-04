@@ -22,6 +22,7 @@ def main():
     hour = now.hour
 
     while True:
+        print("In loop...")
         greet_bot.get_updates(new_offset)
 
         last_update = greet_bot.get_last_update()
@@ -46,6 +47,7 @@ def main():
         new_offset = last_update_id + 1
 
 if __name__ == '__main__':  
+    print('Calling main()')
     try:
         main()
     except KeyboardInterrupt:
