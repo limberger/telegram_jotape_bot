@@ -31,6 +31,12 @@ def main():
         if not last_update:
            continue 
 
+        if not 'message' in last_update:
+            continue
+
+        if not 'text' in last_update['message']:
+            continue
+
         last_update_id = last_update['update_id']
         last_chat_text = last_update['message']['text']
         last_chat_id = last_update['message']['chat']['id']
