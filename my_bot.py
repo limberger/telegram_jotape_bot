@@ -32,6 +32,7 @@ def main():
         for msg in last_update:
 
             last_update_id = msg['update_id']
+            print("Last_update_id %s",msg['update_id'])
             print("Processando <<%s>>\n" % msg)
             if  'new_chat_member' in msg:
                 last_chat_id = msg['new_chat_member']['chat']['id']
