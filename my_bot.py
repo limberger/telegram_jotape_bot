@@ -5,6 +5,7 @@ from bothandler import BotHandler
 import datetime
 import requests
 import pylunar
+import time
 
 # set the token using
 # heroku config:set TELEGRAM_TOKEN='xxxxxxxxx:xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
@@ -26,8 +27,11 @@ def lua(greet_bot, last_chat_id):
     mi = pylunar.MoonInfo((-15, 47, 38), (-47, 52, 58))
     mi.update(datetime.datetime.utcnow())
     percentual = mi.fractional_phase()
-
-
+    idade = mi.age()
+    x = mi.rise_set_times('America/Sao_Paulo')
+    nascimento = datetime.datetime(*x[0][1][0])
+    topo = datetime.datetime(*x[1][1][0])
+    por = datetime.datetime(*x[2][1][0])
     # New Moon.
     # Waxing Crescent.
     # First Quarter.
@@ -50,7 +54,14 @@ def lua(greet_bot, last_chat_id):
     }
     print(mi.phase_name())
     print(mi.magnitude())
-    greet_bot.send_message(last_chat_id, "Lua %s.  %.2f percentual de cheia\n" % (lua[mi.phase_name()],percentual) )
+    greet_bot.send_message(last_chat_id, "Lua %s.  %.2f percentual de cheia\nIdade %s\n"
+                                         "Nascimento %s \nÁplice %s\nPor %s\n" %
+                           (lua[mi.phase_name()],
+                            percentual * 100,
+                            idade ,
+                            nascimento.strftime("%d/%m/%Y %H:%M:%S"),
+                            topo.strftime("%d/%m/%Y %H:%M:%S"),
+                                                        por.strftime("%d/%m/%Y %H:%M:%S") ) )
 
 
 def main():
