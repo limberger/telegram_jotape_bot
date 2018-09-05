@@ -13,7 +13,7 @@ if not 'TELEGRAM_TOKEN' in os.environ:
     sys.exit(2)
 token=os.environ['TELEGRAM_TOKEN']
 greet_bot = BotHandler(token)  
-greetings = ('hello', 'hi', 'greetings', 'sup','oi','olá','alo','ola','alô')
+greetings = ('hello', 'hi', 'greetings', 'sup', 'oi','olá','alo','ola','alô')
 now = datetime.datetime.now()
 
 def main():  
