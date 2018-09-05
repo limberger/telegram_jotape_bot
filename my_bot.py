@@ -38,7 +38,7 @@ def trends_twitter(jotape_bot,last_chat_id):
     lista=t.getTrendsBrasil()
     msg=""
     for linha in lista:
-        msg+=(linha[0] + ":" + linha[2] + " tweets\n")
+        msg+=(linha[0] + ":" + str(linha[2]) + " tweets\n")
     jotape_bot.send_message(last_chat_id,msg)
 
 def sol(jotape_bot, last_chat_id):
