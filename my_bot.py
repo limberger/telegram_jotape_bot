@@ -23,7 +23,7 @@ def ajuda(greet_bot, last_chat_id):
 
 def lua(greet_bot, last_chat_id):
     # Brasilia
-    mi = pylunar.MoonInfo((-15, 47, 38), (47, 52, 58))
+    mi = pylunar.MoonInfo((-15, 47, 38), (-47, 52, 58))
     mi.update(datetime.datetime.utcnow())
     percentual = mi.fractional_phase()
 
