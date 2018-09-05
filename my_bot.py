@@ -9,6 +9,8 @@ import time
 import ephem
 from pytz import timezone
 import pytz
+from twitter import TwitterClass
+
 
 # set the token using
 # heroku config:set TELEGRAM_TOKEN='xxxxxxxxx:xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
@@ -23,10 +25,23 @@ greetings = ('hello', 'hi', 'greetings', 'sup', 'oi','olá','alo','ola','alô')
 now = datetime.datetime.now()
 
 def ajuda(greet_bot, last_chat_id):
-    greet_bot.send_message(last_chat_id, "Comandos\n/ajuda - Lista os comandos disponíveis.\n/lua - Fase da lua em Brasilia.\n/sol - dados do sol\n")
+    greet_bot.send_message(last_chat_id, """
+    Comandos\n/ajuda - Lista os comandos disponíveis.\n
+    /lua - Fase da lua em Brasilia.
+    /sol - dados do sol
+    /trends_twitter - Top 20 trends do twitter Brazil
+    """)
 
 
-def sol(greet_bot, last_chat_id):
+def trends_twitter(jotape_bot,last_chat_id):
+    t=TwitterClass()
+    lista=t.getTrendsBrasil()
+    msg=""
+    for linha in lista:
+        msg+=(linha[0] + ":" + linha[1] + " tweets\n")
+    jotape_bot.send_message(last_chat_id,msg)
+
+def sol(jotape_bot, last_chat_id):
     # Brasilia
     bsb = ephem.Observer()
     bsb.lat, bsb.lon = '-15.6982196', '-48.1082429'
@@ -39,15 +54,15 @@ def sol(greet_bot, last_chat_id):
     unascer = bsb.previous_rising(ephem.Sun()).datetime().replace(tzinfo=pytz.utc)
     uzenite = bsb.previous_transit(ephem.Sun()).datetime().replace(tzinfo=pytz.utc)
     upor = bsb.previous_setting(ephem.Sun()).datetime().replace(tzinfo=pytz.utc)
-    greet_bot.send_message(last_chat_id, "Último\nNascer do Sol: %s\n Zênite: %s\n Pôr-do-sol: %s\n---\nPróximo\nNascer do Sol: %s\n Zênite: %s\n Pôr-do-sol: %s\n" %
-                           (
+    jotape_bot.send_message(last_chat_id, "Último\nNascer do Sol: %s\n Zênite: %s\n Pôr-do-sol: %s\n---\nPróximo\nNascer do Sol: %s\n Zênite: %s\n Pôr-do-sol: %s\n" %
+                            (
                                unascer.astimezone(pytz.timezone('America/Sao_Paulo')),
                                uzenite.astimezone(pytz.timezone('America/Sao_Paulo')),
                                upor.astimezone(pytz.timezone('America/Sao_Paulo')),
                                nascer.astimezone(pytz.timezone('America/Sao_Paulo')) ,
                                zenite.astimezone(pytz.timezone('America/Sao_Paulo')) ,
                                por.astimezone(pytz.timezone('America/Sao_Paulo')) )
-                           )
+                            )
 
 
     dts = [
@@ -61,7 +76,7 @@ def sol(greet_bot, last_chat_id):
     for d in lista:
         s = s + ("%s - %s\n" % (d[0], d[1].astimezone(pytz.timezone('America/Sao_Paulo'))))
 
-    greet_bot.send_message(last_chat_id,s)
+    jotape_bot.send_message(last_chat_id, s)
 
 
 
@@ -172,6 +187,9 @@ def main():
                     lua(jotape_bot, last_chat_id)
 
                 elif last_chat_text.lower() == "/sol":
+                    sol(jotape_bot, last_chat_id)
+
+                elif last_chat_text.lower() == "/trends_twitter":
                     sol(jotape_bot, last_chat_id)
 
                 #elif last_chat_text.lower() = 'trendings':
