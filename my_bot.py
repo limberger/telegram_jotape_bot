@@ -4,6 +4,7 @@ import sys
 from bothandler import BotHandler
 import datetime
 import requests
+import pylunar
 
 # set the token using
 # heroku config:set TELEGRAM_TOKEN='xxxxxxxxx:xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
@@ -18,7 +19,38 @@ greetings = ('hello', 'hi', 'greetings', 'sup', 'oi','olá','alo','ola','alô')
 now = datetime.datetime.now()
 
 def ajuda(greet_bot, last_chat_id):
-    greet_bot.send_message(last_chat_id, "Comandos\najuda - Lista os comandos disponíveis.\n")
+    greet_bot.send_message(last_chat_id, "Comandos\n/ajuda - Lista os comandos disponíveis.\n/lua - Fase da lua em Brasilia.\n")
+
+def lua(greet_bot, last_chat_id):
+    # Brasilia
+    mi = pylunar.MoonInfo((-15, 47, 38), (47, 52, 58))
+    mi.update(datetime.datetime.utcnow())
+    percentual = mi.fractional_phase()
+
+
+    # New Moon.
+    # Waxing Crescent.
+    # First Quarter.
+    # Waxing Gibbous.
+    # Full Moon.
+    # Waning Gibbous.
+    # Last Quarter.
+    # Waning Crescent.
+    #
+
+    lua = {
+    "NEW_MOON" : "Lua nova",
+    "WAXING_CRESCENT": "Lua nova crescente ",
+    "FIRST_QUARTER" : "Lua cresente",
+    "WAXING_GIBBOUS" : "Lua cresente quase cheia",
+    "FULL_MOON" : "Lua cheia",
+    "WANING_GIBBOUS" : "Lua cheia minguando",
+    "LAST_QUARTER":"Lua minguante",
+    "WANING_CRESCENT": "Lua minguante quase nova"
+    }
+    print(mi.phase_name())
+    print(mi.magnitude())
+    greet_bot.send_message(last_chat_id, "Lua {}.  {0:.0%} de cheia\n".format(lua[mi.phase_name()],percentual) )
 
 
 def main():
