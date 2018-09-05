@@ -12,7 +12,15 @@ class BotHandler:
         method = 'getUpdates'
         params = {'timeout': timeout,
                   'offset': offset ,
-                  'allowed_updates' : ['message','edited_channel_post','callback_query'] }
+                  'allowed_updates' : ['message',
+                                        'channel_post',
+                                       'edited_message',
+                                       'edited_channel_post',
+                                       'inline_query',
+                                       'chosen_inline_result',
+                                       'shipping_query',
+                                       'pre_checkout_query',
+                                       'callback_query'] }
         # [“message”, “edited_channel_post”, “callback_query”]
         resp = requests.get(self.api_url + method, params)
         result_json = resp.json()['result']
