@@ -10,7 +10,10 @@ class BotHandler:
     def get_updates(self, offset=None, timeout=30):
         print("get_updates() timeout= %s " % timeout)
         method = 'getUpdates'
-        params = {'timeout': timeout, 'offset': offset}
+        params = {'timeout': timeout,
+                  'offset': offset ,
+                  'allowed_updates' : ['message','edited_channel_post','callback_query'] }
+        # [“message”, “edited_channel_post”, “callback_query”]
         resp = requests.get(self.api_url + method, params)
         result_json = resp.json()['result']
         print("Result do get_updates ...")

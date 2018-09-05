@@ -18,7 +18,7 @@ greetings = ('hello', 'hi', 'greetings', 'sup', 'oi','olá','alo','ola','alô')
 now = datetime.datetime.now()
 
 def ajuda(greet_bot, last_chat_id):
-    greet_bot.send_message(last_chat_id, "Comandos\najuda\nLista os comandos disponíveis.\n")
+    greet_bot.send_message(last_chat_id, "Comandos\najuda - Lista os comandos disponíveis.\n")
 
 
 def main():
