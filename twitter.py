@@ -31,8 +31,8 @@ class TwitterClass:
         print("Brazil Trends")
 
         for location in results:
-            print(location)
-            print( "---")
+            #print(location)
+            #print( "---")
             for trend in location["trends"]:
                 result.append((trend["name"], trend["query"], trend['tweet_volume'] if not trend['tweet_volume'] is None else 0))
 

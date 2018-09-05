@@ -49,8 +49,8 @@
       <file leaf-file-name="twitter.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/twitter.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="633">
-              <caret line="49" lean-forward="true" selection-start-line="49" selection-end-line="49" />
+            <state relative-caret-position="363">
+              <caret line="34" column="13" selection-start-line="34" selection-start-column="13" selection-end-line="34" selection-end-column="13" />
               <folding>
                 <element signature="e#233#246#0" expanded="true" />
               </folding>
@@ -239,8 +239,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/twitter.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="633">
-          <caret line="49" lean-forward="true" selection-start-line="49" selection-end-line="49" />
+        <state relative-caret-position="363">
+          <caret line="34" column="13" selection-start-line="34" selection-start-column="13" selection-end-line="34" selection-end-column="13" />
           <folding>
             <element signature="e#233#246#0" expanded="true" />
           </folding>
