@@ -49,14 +49,17 @@ def main():
 
                 if last_chat_text.lower() in greetings and today == now.day and 6 <= hour < 12:
                     greet_bot.send_message(last_chat_id, 'Bom dia  {}'.format(last_chat_name))
+                    print("Bom dia")
                     today += 1
 
                 elif last_chat_text.lower() in greetings and today == now.day and 12 <= hour < 17:
                     greet_bot.send_message(last_chat_id, 'Boa tarde {}'.format(last_chat_name))
+                    print("Boa tarde")
                     today += 1
 
                 elif last_chat_text.lower() in greetings and today == now.day and 17 <= hour < 23:
                     greet_bot.send_message(last_chat_id, 'Boa noite  {}'.format(last_chat_name))
+                    print("Boa noite")
                     today += 1
 
                 #elif last_chat_text.lower() = 'trendings':
