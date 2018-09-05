@@ -33,18 +33,20 @@ def main():
 
             last_update_id = msg['update_id']
             last_chat_id = msg['message']['chat']['id']
-            last_chat_name = msg['message']['chat']['first_name']
 
             print("Last_update_id %s" % msg['update_id'])
             print("Processando <<%s>>\n" % msg)
             if  'new_chat_member' in msg['message']:
+                last_chat_name = msg['message']['new_chat_member']['first_name']
                 greet_bot.send_mesage(last_chat_id, "Olá %s!\n Bem vid@ ao grupo!", last_chat_name)
 
             if 'left_chat_participant' in msg['message']:
+                last_chat_name = msg['message']['left_chat_participant']['first_name']
                 greet_bot.send_mesage(last_chat_id,"Tchau %s!", last_chat_name)
 
             if  'text' in msg['message']:
                 print("message....")
+                last_chat_name = msg['message']['chat']['first_name']
                 last_chat_text = msg['message']['text']
 
                 print("hour %s" % hour)
