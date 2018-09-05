@@ -113,6 +113,9 @@ def main():
                 elif last_chat_text.lower() == "/ajuda":
                     ajuda(greet_bot,last_chat_id)
 
+                elif last_chat_text.lower() == "/lua":
+                    ajuda(greet_bot,last_chat_id)
+
                 #elif last_chat_text.lower() = 'trendings':
 
 
