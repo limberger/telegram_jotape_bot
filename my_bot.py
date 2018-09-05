@@ -7,6 +7,8 @@ import requests
 import pylunar
 import time
 import ephem
+from pytz import timezone
+import pytz
 
 # set the token using
 # heroku config:set TELEGRAM_TOKEN='xxxxxxxxx:xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
@@ -28,11 +30,15 @@ def sol(greet_bot, last_chat_id):
     # Brasilia
     bsb = ephem.Observer()
     bsb.lat, bsb.lon = '-15.6982196', '-48.1082429'
+    bsb.date =  datetime.datetime.utcnow()
+    nascer = bsb.next_rising(ephem.Sun()).datetime().replace(tzinfo=pytz.utc)
+    zenite = bsb.next_transit(ephem.Sun()).datetime().replace(tzinfo=pytz.utc)
+    por = bsb.next_setting(ephem.Sun()).datetime().replace(tzinfo=pytz.utc)
 
     greet_bot.send_message(last_chat_id, "Nascer do Sol: %s\n Zênite: %s\n Pôr-do-sol: %s\n" %
-                           (ephem.localtime(bsb.next_rising(ephem.Sun())) ,
-                            ephem.localtime(bsb.next_transit(ephem.Sun())),
-                            ephem.localtime(bsb.next_setting(ephem.Sun())))
+                           (nascer.astimezone(pytz.timezone('America/Sao_Paulo')) ,
+                            zenite.astimezone(pytz.timezone('America/Sao_Paulo')) ,
+                            por.astimezone(pytz.timezone('America/Sao_Paulo')) )
                            )
 
 
