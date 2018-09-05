@@ -18,7 +18,7 @@ if not 'TELEGRAM_TOKEN' in os.environ:
     print('Token nao setado em TELEGRAM_TOKEN', file=sys.stderr)
     sys.exit(2)
 token=os.environ['TELEGRAM_TOKEN']
-greet_bot = BotHandler(token)  
+jotape_bot = BotHandler(token)
 greetings = ('hello', 'hi', 'greetings', 'sup', 'oi','olá','alo','ola','alô')
 now = datetime.datetime.now()
 
@@ -30,6 +30,7 @@ def sol(greet_bot, last_chat_id):
     # Brasilia
     bsb = ephem.Observer()
     bsb.lat, bsb.lon = '-15.6982196', '-48.1082429'
+    bsb.horizon = '-6'  # Civil twilight -6 graus em relação ao centro do sol
     bsb.date =  datetime.datetime.utcnow()
     nascer = bsb.next_rising(ephem.Sun()).datetime().replace(tzinfo=pytz.utc)
     zenite = bsb.next_transit(ephem.Sun()).datetime().replace(tzinfo=pytz.utc)
@@ -44,10 +45,23 @@ def sol(greet_bot, last_chat_id):
                                uzenite.astimezone(pytz.timezone('America/Sao_Paulo')),
                                upor.astimezone(pytz.timezone('America/Sao_Paulo')),
                                nascer.astimezone(pytz.timezone('America/Sao_Paulo')) ,
-                            zenite.astimezone(pytz.timezone('America/Sao_Paulo')) ,
-                            por.astimezone(pytz.timezone('America/Sao_Paulo')) )
+                               zenite.astimezone(pytz.timezone('America/Sao_Paulo')) ,
+                               por.astimezone(pytz.timezone('America/Sao_Paulo')) )
                            )
 
+
+    dts = [
+        ('Outono',ephem.next_vernal_equinox(datetime.datetime.utcnow()).datetime().replace(tzinfo=pytz.utc)),
+        ('Inverno',ephem.next_summer_solstice(datetime.datetime.utcnow()).datetime().replace(tzinfo=pytz.utc)),
+        ('Verão',ephem.next_winter_solstice(datetime.datetime.utcnow()).datetime().replace(tzinfo=pytz.utc)),
+        ('Primavera',ephem.next_autumnal_equinox(datetime.datetime.utcnow()).datetime().replace(tzinfo=pytz.utc))
+    ]
+    lista = sorted(dts, key=lambda x:x[1])
+    s = ""
+    for d in dts:
+        s = s + ("%s - %s\n" % (d[0], d[1].astimezone(pytz.timezone('America/Sao_Paulo'))))
+
+    greet_bot.send_message(last_chat_id,s)
 
 
 
@@ -101,9 +115,9 @@ def main():
     while True:
         hour = now.hour
         print("In loop...",file=sys.stderr)
-        greet_bot.get_updates(new_offset)
+        jotape_bot.get_updates(new_offset)
 
-        last_update = greet_bot.get_last_update()
+        last_update = jotape_bot.get_last_update()
 
         print("Last_update len: %s" % len(last_update))
         for msg in last_update:
@@ -115,16 +129,16 @@ def main():
             print("Processando <<%s>>\n" % msg)
             if  'new_chat_member' in msg['message']:
                 last_chat_name = msg['message']['new_chat_member']['first_name']
-                greet_bot.send_message(last_chat_id, "Olá %s!\n Bem vid@ ao grupo!\nMeu nome é %s\n" %
-                                       (last_chat_name, NOME_DO_BOT))
-                greet_bot.send_message(last_chat_id, "Primeiramente #LulaLivre! :-)")
-                greet_bot.send_message(last_chat_id,
+                jotape_bot.send_message(last_chat_id, "Olá %s!\n Bem vid@ ao grupo!\nMeu nome é %s\n" %
+                                        (last_chat_name, NOME_DO_BOT))
+                jotape_bot.send_message(last_chat_id, "Primeiramente #LulaLivre! :-)")
+                jotape_bot.send_message(last_chat_id,
                                        "Eu ainda sou meio bobinho, se vocë mandar para mim uma mensagem ajuda eu te digo quais são minhas capacidades.")
-                ajuda(greet_bot,last_chat_id)
+                ajuda(jotape_bot, last_chat_id)
 
             if 'left_chat_participant' in msg['message']:
                 last_chat_name = msg['message']['left_chat_participant']['first_name']
-                greet_bot.send_message(last_chat_id,"Tchau %s!" % last_chat_name)
+                jotape_bot.send_message(last_chat_id, "Tchau %s!" % last_chat_name)
 
             if  'text' in msg['message']:
                 print("message....")
@@ -137,28 +151,28 @@ def main():
                 print("today %s" % today)
                 print("now.day %s" % now.day)
                 if last_chat_text.lower() in greetings and today == now.day and 0 <= hour < 12:
-                    greet_bot.send_message(last_chat_id, 'Bom dia  {}'.format(last_chat_name))
+                    jotape_bot.send_message(last_chat_id, 'Bom dia  {}'.format(last_chat_name))
                     print("Bom dia")
                     today += 1
 
                 elif last_chat_text.lower() in greetings and today == now.day and 12 <= hour < 17:
-                    greet_bot.send_message(last_chat_id, 'Boa tarde {}'.format(last_chat_name))
+                    jotape_bot.send_message(last_chat_id, 'Boa tarde {}'.format(last_chat_name))
                     print("Boa tarde")
                     today += 1
 
                 elif last_chat_text.lower() in greetings and today == now.day and 17 <= hour < 23:
-                    greet_bot.send_message(last_chat_id, 'Boa noite  {}'.format(last_chat_name))
+                    jotape_bot.send_message(last_chat_id, 'Boa noite  {}'.format(last_chat_name))
                     print("Boa noite")
                     today += 1
 
                 elif last_chat_text.lower() == "/ajuda":
-                    ajuda(greet_bot,last_chat_id)
+                    ajuda(jotape_bot, last_chat_id)
 
                 elif last_chat_text.lower() == "/lua":
-                    lua(greet_bot,last_chat_id)
+                    lua(jotape_bot, last_chat_id)
 
                 elif last_chat_text.lower() == "/sol":
-                    sol(greet_bot,last_chat_id)
+                    sol(jotape_bot, last_chat_id)
 
                 #elif last_chat_text.lower() = 'trendings':
 
