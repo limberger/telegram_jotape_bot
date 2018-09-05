@@ -7,6 +7,7 @@ import requests
 
 # set the token using
 # heroku config:set TELEGRAM_TOKEN='xxxxxxxxx:xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
+NOME_DO_BOT="jotape_bot"
 
 if not 'TELEGRAM_TOKEN' in os.environ:
     print('Token nao setado em TELEGRAM_TOKEN', file=sys.stderr)
@@ -16,7 +17,11 @@ greet_bot = BotHandler(token)
 greetings = ('hello', 'hi', 'greetings', 'sup', 'oi','olá','alo','ola','alô')
 now = datetime.datetime.now()
 
-def main():  
+def ajuda(greet_bot, last_chat_id):
+    greet_bot.send_message(last_chat_id, "Comandos\najuda\nLista os comandos disponíveis.\n")
+
+
+def main():
     print('In main',file=sys.stderr)
     new_offset = None
     today = now.day
@@ -39,6 +44,10 @@ def main():
             if  'new_chat_member' in msg['message']:
                 last_chat_name = msg['message']['new_chat_member']['first_name']
                 greet_bot.send_message(last_chat_id, "Olá %s!\n Bem vid@ ao grupo!" % last_chat_name)
+                greet_bot.send_message(last_chat_id, "Meu nome é %s\n" % NOME_DO_BOT)
+                greet_bot.send_message(last_chat_id,
+                                       "Eu ainda sou meio bobinho, se vocë mandar para mim uma mensagem ajuda eu te digo quais são minhas capacidades.")
+                ajuda(greet_bot,last_chat_id)
 
             if 'left_chat_participant' in msg['message']:
                 last_chat_name = msg['message']['left_chat_participant']['first_name']
@@ -66,6 +75,9 @@ def main():
                     greet_bot.send_message(last_chat_id, 'Boa noite  {}'.format(last_chat_name))
                     print("Boa noite")
                     today += 1
+
+                elif last_chat_text.lower() == "ajuda":
+                    ajuda(greet_bot,last_chat_id)
 
                 #elif last_chat_text.lower() = 'trendings':
 
