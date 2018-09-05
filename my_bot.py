@@ -55,7 +55,9 @@ def main():
 
             if  'text' in msg['message']:
                 print("message....")
-                last_chat_name = msg['message']['chat']['first_name']
+                last_chat_name = ''
+                if 'first_name' in msg['message']['chat']:
+                    last_chat_name = msg['message']['chat']['first_name']
                 last_chat_text = msg['message']['text']
 
                 print("hour %s" % hour)
@@ -76,7 +78,7 @@ def main():
                     print("Boa noite")
                     today += 1
 
-                elif last_chat_text.lower() == "ajuda":
+                elif last_chat_text.lower() == "/ajuda":
                     ajuda(greet_bot,last_chat_id)
 
                 #elif last_chat_text.lower() = 'trendings':
