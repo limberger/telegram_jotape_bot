@@ -54,7 +54,7 @@ def lua(greet_bot, last_chat_id):
     }
     print(mi.phase_name())
     print(mi.magnitude())
-    greet_bot.send_message(last_chat_id, "Lua %s.  %.2f percentual de cheia\nIdade %s\n"
+    greet_bot.send_message(last_chat_id, "Lua %s.  %.2f percentual de cheia\nIdade %.2f\n"
                                          "Nascimento %s \nÁplice %s\nPor %s\n" %
                            (lua[mi.phase_name()],
                             percentual * 100,
