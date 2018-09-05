@@ -35,8 +35,15 @@ def sol(greet_bot, last_chat_id):
     zenite = bsb.next_transit(ephem.Sun()).datetime().replace(tzinfo=pytz.utc)
     por = bsb.next_setting(ephem.Sun()).datetime().replace(tzinfo=pytz.utc)
 
-    greet_bot.send_message(last_chat_id, "Nascer do Sol: %s\n Zênite: %s\n Pôr-do-sol: %s\n" %
-                           (nascer.astimezone(pytz.timezone('America/Sao_Paulo')) ,
+    unascer = bsb.previous_rising(ephem.Sun()).datetime().replace(tzinfo=pytz.utc)
+    uzenite = bsb.previous_transit(ephem.Sun()).datetime().replace(tzinfo=pytz.utc)
+    upor = bsb.previous_setting(ephem.Sun()).datetime().replace(tzinfo=pytz.utc)
+    greet_bot.send_message(last_chat_id, "Último\nNascer do Sol: %s\n Zênite: %s\n Pôr-do-sol: %s\n---\nPróximo\nNascer do Sol: %s\n Zênite: %s\n Pôr-do-sol: %s\n" %
+                           (
+                               unascer.astimezone(pytz.timezone('America/Sao_Paulo')),
+                               uzenite.astimezone(pytz.timezone('America/Sao_Paulo')),
+                               upor.astimezone(pytz.timezone('America/Sao_Paulo')),
+                               nascer.astimezone(pytz.timezone('America/Sao_Paulo')) ,
                             zenite.astimezone(pytz.timezone('America/Sao_Paulo')) ,
                             por.astimezone(pytz.timezone('America/Sao_Paulo')) )
                            )
