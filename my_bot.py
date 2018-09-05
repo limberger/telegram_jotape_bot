@@ -28,7 +28,7 @@ def main():
 
         last_update = greet_bot.get_last_update()
 
-        print("Last_update len: %s", len(last_update))
+        print("Last_update len: %s" % len(last_update))
         for msg in last_update:
 
             last_update_id = msg['update_id']
