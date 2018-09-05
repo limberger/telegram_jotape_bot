@@ -6,6 +6,7 @@ import datetime
 import requests
 import pylunar
 import time
+import ephem
 
 # set the token using
 # heroku config:set TELEGRAM_TOKEN='xxxxxxxxx:xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
@@ -20,7 +21,22 @@ greetings = ('hello', 'hi', 'greetings', 'sup', 'oi','olá','alo','ola','alô')
 now = datetime.datetime.now()
 
 def ajuda(greet_bot, last_chat_id):
-    greet_bot.send_message(last_chat_id, "Comandos\n/ajuda - Lista os comandos disponíveis.\n/lua - Fase da lua em Brasilia.\n")
+    greet_bot.send_message(last_chat_id, "Comandos\n/ajuda - Lista os comandos disponíveis.\n/lua - Fase da lua em Brasilia.\n/sol - dados do sol\n")
+
+
+def sol(greet_bot, last_chat_id):
+    # Brasilia
+    bsb = ephem.Observer()
+    bsb.lat, bsb.lon = '-15.6982196', '-48.1082429'
+
+    greet_bot.send_message(last_chat_id, "Nascer do Sol: %s\n Zênite: %s\n Pôr-do-sol: %s\n" %
+                           (ephem.localtime(bsb.next_rising(ephem.Sun())) ,
+                            ephem.localtime(bsb.next_transit(ephem.Sun())),
+                            ephem.localtime(bsb.next_setting(ephem.Sun())))
+                           )
+
+
+
 
 def lua(greet_bot, last_chat_id):
     # Brasilia
@@ -86,8 +102,8 @@ def main():
             print("Processando <<%s>>\n" % msg)
             if  'new_chat_member' in msg['message']:
                 last_chat_name = msg['message']['new_chat_member']['first_name']
-                greet_bot.send_message(last_chat_id, "Olá %s!\n Bem vid@ ao grupo!" % last_chat_name)
-                greet_bot.send_message(last_chat_id, "Meu nome é %s\n" % NOME_DO_BOT)
+                greet_bot.send_message(last_chat_id, "Olá %s!\n Bem vid@ ao grupo!\nMeu nome é %s\n" %
+                                       (last_chat_name, NOME_DO_BOT))
                 greet_bot.send_message(last_chat_id, "Primeiramente #LulaLivre! :-)")
                 greet_bot.send_message(last_chat_id,
                                        "Eu ainda sou meio bobinho, se vocë mandar para mim uma mensagem ajuda eu te digo quais são minhas capacidades.")
@@ -127,6 +143,9 @@ def main():
 
                 elif last_chat_text.lower() == "/lua":
                     lua(greet_bot,last_chat_id)
+
+                elif last_chat_text.lower() == "/sol":
+                    sol(greet_bot,last_chat_id)
 
                 #elif last_chat_text.lower() = 'trendings':
 
