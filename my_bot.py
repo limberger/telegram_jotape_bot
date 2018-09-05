@@ -51,7 +51,7 @@ def main():
                 print("hour %s" % hour)
                 print("today %s" % today)
                 print("now.day %s" % now.day)
-                if last_chat_text.lower() in greetings and today == now.day and 6 <= hour < 12:
+                if last_chat_text.lower() in greetings and today == now.day and 0 <= hour < 12:
                     greet_bot.send_message(last_chat_id, 'Bom dia  {}'.format(last_chat_name))
                     print("Bom dia")
                     today += 1
