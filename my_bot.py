@@ -190,7 +190,7 @@ def main():
                     sol(jotape_bot, last_chat_id)
 
                 elif last_chat_text.lower() == "/trends_twitter":
-                    sol(jotape_bot, last_chat_id)
+                    trends_twitter(jotape_bot, last_chat_id)
 
                 #elif last_chat_text.lower() = 'trendings':
 
