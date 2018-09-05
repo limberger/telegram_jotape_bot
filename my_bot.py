@@ -88,6 +88,7 @@ def main():
                 last_chat_name = msg['message']['new_chat_member']['first_name']
                 greet_bot.send_message(last_chat_id, "Olá %s!\n Bem vid@ ao grupo!" % last_chat_name)
                 greet_bot.send_message(last_chat_id, "Meu nome é %s\n" % NOME_DO_BOT)
+                greet_bot.send_message(last_chat_id, "Primeiramente #LulaLivre! :-)")
                 greet_bot.send_message(last_chat_id,
                                        "Eu ainda sou meio bobinho, se vocë mandar para mim uma mensagem ajuda eu te digo quais são minhas capacidades.")
                 ajuda(greet_bot,last_chat_id)
