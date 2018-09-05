@@ -20,9 +20,9 @@ def main():
     print('In main',file=sys.stderr)
     new_offset = None
     today = now.day
-    hour = now.hour
 
     while True:
+        hour = now.hour
         print("In loop...",file=sys.stderr)
         greet_bot.get_updates(new_offset)
 
@@ -32,7 +32,7 @@ def main():
         for msg in last_update:
 
             last_update_id = msg['update_id']
-            print("Last_update_id %s",msg['update_id'])
+            print("Last_update_id %s" % msg['update_id'])
             print("Processando <<%s>>\n" % msg)
             if  'new_chat_member' in msg:
                 last_chat_id = msg['new_chat_member']['chat']['id']
@@ -48,6 +48,9 @@ def main():
                 last_chat_id = msg['message']['chat']['id']
                 last_chat_name = msg['message']['chat']['first_name']
 
+                print("hour %s" % hour)
+                print("today %s" % today)
+                print("now.day %s" % now.day)
                 if last_chat_text.lower() in greetings and today == now.day and 6 <= hour < 12:
                     greet_bot.send_message(last_chat_id, 'Bom dia  {}'.format(last_chat_name))
                     print("Bom dia")
