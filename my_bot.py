@@ -29,9 +29,9 @@ def lua(greet_bot, last_chat_id):
     percentual = mi.fractional_phase()
     idade = mi.age()
     x = mi.rise_set_times('America/Sao_Paulo')
-    nascimento = datetime.datetime(*x[0][1][0])
-    topo = datetime.datetime(*x[1][1][0])
-    por = datetime.datetime(*x[2][1][0])
+    nascimento = datetime.datetime(*x[0][1])
+    topo = datetime.datetime(*x[1][1])
+    por = datetime.datetime(*x[2][1])
     # New Moon.
     # Waxing Crescent.
     # First Quarter.
