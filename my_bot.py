@@ -42,6 +42,7 @@ def main():
                 greet_bot.send_mesage(last_chat_id,"Tchau %s!", msg['left_chat_participant']['first_name'])
 
             if 'message' in msg and 'text' in msg['message']:
+                print("message....")
                 last_chat_text = msg['message']['text']
                 last_chat_id = msg['message']['chat']['id']
                 last_chat_name = msg['message']['chat']['first_name']
