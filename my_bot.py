@@ -58,7 +58,7 @@ def sol(greet_bot, last_chat_id):
     ]
     lista = sorted(dts, key=lambda x:x[1])
     s = ""
-    for d in dts:
+    for d in lista:
         s = s + ("%s - %s\n" % (d[0], d[1].astimezone(pytz.timezone('America/Sao_Paulo'))))
 
     greet_bot.send_message(last_chat_id,s)
