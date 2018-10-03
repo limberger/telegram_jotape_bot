@@ -10,7 +10,11 @@ import ephem
 from pytz import timezone
 import pytz
 from twitter import TwitterClass
-
+import wolframalpha.Python_Binding_1_1.wap
+import config
+import wap
+import urlib
+import json
 
 # set the token using
 # heroku config:set TELEGRAM_TOKEN='xxxxxxxxx:xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
@@ -29,8 +33,27 @@ def ajuda(greet_bot, last_chat_id):
     Comandos\n/ajuda - Lista os comandos disponíveis.\n
     /lua - Fase da lua em Brasilia.
     /sol - dados do sol
+    /pergunta xxxx - qualquer pergunta em ingles
     /trends_twitter - Top 20 trends do twitter Brazil
     """)
+
+def pergunta(jotape_bot, last_chat_id, input):
+    server = 'http://api.wolframalpha.com/v1/query.jsp'
+    appid = config.wolframalpha_appid
+
+    waeo = wap.WolframAlphaEngine(appid, server)
+    query = waeo.CreateQuery(input)
+    result = waeo.PerformQuery(query)
+    waeqr = wap.WolframAlphaQueryResult(result)
+    jsonresult = waeqr.JsonResult()
+    x = json.loads(jsonresult)
+
+    if len(x) > 0 and len(x[-1]) > 0 and len(x[-1][-1]) > 0 and len(x[-1][-1][-1]) > 0 :
+       jotape_bot.send_message( last_chat_id, x[-1][-1][-1][-1] )
+    else:
+       jotape_bot.send_message( last_chat_id, 'não entendi' )
+
+
 
 
 def trends_twitter(jotape_bot,last_chat_id):
@@ -191,6 +214,9 @@ def main():
 
                 elif last_chat_text.lower() == "/trends_twitter":
                     trends_twitter(jotape_bot, last_chat_id)
+
+                elif last_chat_text.strip().lower().startsWith('/pergunta'):
+                    pergunta(jotape_bot, last_chat_id, last_chat_text.strip()[9:])
 
                 #elif last_chat_text.lower() = 'trendings':
 
