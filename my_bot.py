@@ -215,6 +215,9 @@ def main():
                 elif last_chat_text.lower() == "/trends_twitter":
                     trends_twitter(jotape_bot, last_chat_id)
 
+                elif last_chat_text.strip().lower().startsWith('/pergunta'):
+                    pergunta(jotape_bot, last_chat_id, last_chat_text.strip()[9:])
+
                 #elif last_chat_text.lower() = 'trendings':
 
 
